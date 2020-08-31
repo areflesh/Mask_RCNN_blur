@@ -84,10 +84,10 @@ def get_matrix_mask(image_mask, mask, label):
     return image_mask
 
 
-def blur_image(image, masked_image):
+def blur_image(image, masked_image, parameter):
     
     blurred_image = image.astype(np.uint8).copy()
-    blurred_image = cv2.blur(blurred_image,(30,30))
+    blurred_image = cv2.blur(blurred_image,(parameter,parameter))
     positions_background = np.where(masked_image != 0)
     
     for i,j in zip(positions_background[0],positions_background[1]):
@@ -95,7 +95,7 @@ def blur_image(image, masked_image):
     
     return blurred_image
 
-def display_blurred(image, boxes, masks, class_ids, class_names ,name_first,name_second,
+def display_blurred(image, boxes, masks, class_ids, class_names ,name_first,name_second, parameter_b
                             scores=None , figsize=(16,16), ax=None):
         """
         boxes: [num_instance, (y1, x1, y2, x2, class_id)] in image coordinates.
@@ -128,10 +128,10 @@ def display_blurred(image, boxes, masks, class_ids, class_names ,name_first,name
             if class_id==1:
                 masked_image = get_matrix_mask(masked_image, mask, class_id+1)
             
-        blurred_image = blur_image(image, masked_image)
+        blurred_image = blur_image(image, masked_image,parameter_b)
         plt.imsave(name_first, blurred_image.astype(np.uint8))
         masked_image=np.logical_not(masked_image).astype(int)
-        blurred_image = blur_image(image, masked_image)
+        blurred_image = blur_image(image, masked_image,parameter_b)
         plt.imsave(name_second, blurred_image.astype(np.uint8))
         
 
