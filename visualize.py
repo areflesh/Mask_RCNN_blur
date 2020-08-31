@@ -95,7 +95,7 @@ def blur_image(image, masked_image, parameter):
     
     return blurred_image
 
-def display_blurred(image, boxes, masks, class_ids, class_names ,name_first,name_second, parameter_b
+def display_blurred(image, boxes, masks, class_ids, class_names ,name_first,name_second, parameter_b,
                             scores=None , figsize=(16,16), ax=None):
         """
         boxes: [num_instance, (y1, x1, y2, x2, class_id)] in image coordinates.
